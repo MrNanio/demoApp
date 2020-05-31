@@ -1,8 +1,6 @@
-###FleetAssistant demoApp
-
 ## General info
-This project is FleetAssistant App demo version.
-
+This project is FleetAssistant App demo version.\
+Created by: MrNanio, HauntedHunteer
 	
 ## Technologies
 Project is created with:
