@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en"
+        xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>fleetAssistant</title>
+    <link rel = "icon" th:href="@{/image/automobile.png}" type = "image/x-icon">
+    <!-- Bootstrap core CSS -->
+
+    <link th:href="@{/css/custom.css}" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"  crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-dark navbar-expand-md bg-dark justify-content-between">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-nav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse dual-nav w-100">
+    </div>
+    <a href="/startpage" class="navbar-brand mx-auto d-block text-center w-100 h1">fleetAssistant</a>
+    <div class="navbar-collapse collapse dual-nav w-100">
+        <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href=""><i class="fa fa-twitter"></i></a></li>
+            <li class="nav-item"><a class="nav-link" href=""><i class="fa fa-github"></i></a></li>
+        </ul>
+    </div>
+        <form class="form-inline my-2 my-lg-0" form-method="post" th:action="@{/login}">
+            <button sec:authorize="isAnonymous()" th:href="@{~/login}" class="btn btn-outline-info my-2 my-sm-0 btn-sm" type="submit">Zaloguj</button>
+        </form>
+    <form class="form-inline my-2 my-lg-0" form-method="post" th:action="@{/registration}">
+        <button sec:authorize="isAnonymous()" th:href="@{~/registration}" class="btn btn-outline-info my-2 my-sm-0 btn-sm" type="submit">Zarejestruj</button>
+    </form>
+
+</nav>
+<div class="container pt-5">
+    <div class="row">
+
+        <div class="col-md-4 mb-3">
+
+        </div>
+        <div class="col-md-4 mb-3">
+
+
+        </div>
+        <div class="col-md-4 mb-3">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+
+        </div>
+        <div class="col-md-4 mb-3">
+
+
+        </div>
+        <div class="col-md-4 mb-3">
+
+        </div>
+
+    </div>
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; Szkic</p>
+    </footer>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+</body>
+
+
+</html>

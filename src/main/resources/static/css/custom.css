@@ -1,0 +1,44 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 25 kwi 2020, 15:01:07
+    Author     : Mateusz
+*/
+.btn_round{
+    border-radius: 40px;
+}
+.body{
+    
+    background-color: red;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.btn_narrow {
+  max-width: 330px;
+  
+  margin: 0 auto;
+}
+.btn_small{
+    
+}
+.h1{
+    font-family: 'Lobster', cursive;
+   
+}
+.c1{
+    text-align: center;
+    color: white;
+}
+.c2{
+
+}
+.navbar{
+    
+    text-align: center;
+    color: white;
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Strona logowania</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"  crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/signin.css}" rel="stylesheet" />
+    <link th:href="@{/css/custom.css}" rel="stylesheet" />
+    <link rel = "icon" th:href="@{/image/automobile.png}" type = "image/x-icon">
+</head>
+<body class="text-center">
+<div class="container md-4">
+    <form th:action="@{/login}" method="POST" class="form-signin">
+        <img class="mb-4" src="/image/traffic-jam.svg" alt="" width="100" height="100">
+        <h1 class="h3 mb-3 font-weight-normal">Zaloguj się do serwisu</h1>
+        <input type="text" id="email" name="email" placeholder="email"
+               class="form-control"/> <br/>
+        <input type="password" th:placeholder="password"
+               id="password" name="password" class="form-control"/> <br/>
+        <button class="btn btn-lg btn-primary btn-block btn_round" name="Submit" type="submit">Zaloguj się</button>
+        <hr class="mb-4">
+    </form>
+</div>
+<form th:action="@{/registration}">
+    <label >Nie masz konta?</label>
+    <button class="btn btn-lg btn-primary btn_round btn_narrow"  name="button" type="submit">Zarejestruj się</button>
+</form>
+<footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; Szkic</p>
+</footer>
+</body>
+</html>
+
