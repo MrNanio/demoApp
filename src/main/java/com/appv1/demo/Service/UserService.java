@@ -32,7 +32,7 @@ public class UserService {
     public User findUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
-    public User saveUser(User user) {
+    public void saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         Role userRole = roleRepository.findRoleByRole("ADMIN");
         UserStatus userStatus = userStatusRepository.findUserStatusByIdUserStatus(0);
@@ -41,7 +41,7 @@ public class UserService {
         LocalDateTime datetime = LocalDateTime.now();
         user.setCreatedAt(datetime);
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
 }
