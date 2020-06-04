@@ -8,6 +8,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VehicleMakeRepository extends JpaRepository<VehicleMake, Integer> {
 
-    VehicleMake findVehicleMakeByIdVehicleMake(Integer id_vehicle_make);
-
 }

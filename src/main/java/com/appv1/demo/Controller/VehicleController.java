@@ -2,11 +2,14 @@ package com.appv1.demo.Controller;
 
 import com.appv1.demo.Entity.User;
 import com.appv1.demo.Entity.Vehicle;
+import com.appv1.demo.Entity.VehicleMake;
 import com.appv1.demo.Repository.VehicleMakeRepository;
 import com.appv1.demo.Repository.VehicleRepository;
 import com.appv1.demo.Service.UserService;
 import com.appv1.demo.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -44,7 +47,6 @@ public class VehicleController {
         vehicleService.save(vehicle);
         return "redirect:/vehicle";
     }
-
     @GetMapping("/vehicle")
     public String showAllMyVehicle(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -59,11 +61,9 @@ public class VehicleController {
         model.addAttribute("vehicle",vehicleService.getById(id));
         return "vehicleDetails";
     }
-
     @GetMapping("/vehicleEdit/{id}")
     public String showUpdateVehicleForm(@PathVariable("id") int id, Model model) {
-       Vehicle vehicle=vehicleRepository.findById(id)
-               .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+       Vehicle vehicle=vehicleService.getById(id);
         model.addAttribute("vehicle", vehicle);
         return "editVehicle";
     }

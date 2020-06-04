@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CompanyStatusRepository extends JpaRepository<CompanyStatus, Integer> {
-
-    CompanyStatus findCompanyStatusByIdCompanyStatus(Integer id_company_status);
 }
