@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDataRepository extends JpaRepository<UserData, Integer> {
 
-    UserData findUserDataByIdUserData(Integer id_user_data);
 }
