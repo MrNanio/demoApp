@@ -82,7 +82,7 @@ and open the template in the editor.
                     </form>
                 </div>
                 <div class="col-md-3 mb-3">
-                    <form th:action="@{/addVehicle}">
+                    <form th:action="@{/vehicleInsurances/{id}(id = ${vehicle.idVehicle})}">
                         <button class="btn btn-outline-primary btn-lg btn-radius"  type="Submit">Ubezpieczenia</button>
                     </form>
                 </div>
