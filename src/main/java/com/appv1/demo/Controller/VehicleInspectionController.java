@@ -35,10 +35,10 @@ public class VehicleInspectionController {
         return "addInspection";
     }
 
-    @PostMapping("/addInspection")
-    public String createVehicleInspection(@ModelAttribute VehicleInspection vehicleInspection){
+    @PostMapping("/addInspection/{id}")
+    public String createVehicleInspection(@PathVariable int id, @ModelAttribute VehicleInspection vehicleInspection){
         vehicleInspectionService.save(vehicleInspection);
-        return "redirect:/vehicle";
+        return "redirect:/vehicleInspections/{id}";
     }
 
     @GetMapping("/vehicleInspections/{id}")

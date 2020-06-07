@@ -29,7 +29,7 @@ public class VehicleInsuranceService {
     }
 
     public List <InsuranceType> findInsuranceTypes(){
-        return insuranceTypeRepository.findInsuranceTypes();
+        return insuranceTypeRepository.findAll();
     }
 
     public void save(VehicleInsurance vehicleInsurance){

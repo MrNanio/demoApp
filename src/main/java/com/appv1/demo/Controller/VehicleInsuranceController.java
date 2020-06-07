@@ -36,10 +36,10 @@ public class VehicleInsuranceController {
         return "addInsurance";
     }
 
-    @PostMapping("/addInsurance")
-    public String createVehicleInsurance(@ModelAttribute VehicleInsurance vehicleInsurance){
+    @PostMapping("/addInsurance/{id}")
+    public String createVehicleInsurance(@PathVariable int id, @ModelAttribute VehicleInsurance vehicleInsurance){
         vehicleInsuranceService.save(vehicleInsurance);
-        return "redirect:/vehicle";
+        return "redirect:/vehicleInsurances/{id}";
     }
 
     @GetMapping("/vehicleInsurances/{id}")

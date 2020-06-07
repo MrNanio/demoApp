@@ -60,7 +60,7 @@
             <hr class="mb-4">
             <h4 class="mb-3">Pojazd</h4>
 
-            <form autocomplete="off" action="#" th:action="@{/addInsurance}"
+            <form autocomplete="off" action="#" th:action="@{/addInsurance/{id}(id = ${vehicle.idVehicle})}"
                   th:object="${insurance}"  method="post" class="form-horizontal"
                   role="form">
                 <div class="row">
@@ -84,9 +84,9 @@
                 <div class="row">
                     <div class="col-md-6 mb-3" >
                         <label for="insuranceType">Typ polisy</label>
-                        <select class="custom-select d-block w-100" id="insuranceType" name="insuranceType" required>
+                        <select class="custom-select d-block w-100" id="insuranceType" name="insuranceType" th:field="*{insuranceType.idInsuranceType}" required>
                             <option value="">Wybierz...</option>
-                            <option th:each="insurenceType:${insurencetypes}"><p th:text="${insurenceType.idInsuranceType}"></option>
+                            <option th:each="insurenceType:${insurencetypes}" th:value="${insurenceType.idInsuranceType}" th:text="${insurenceType.name}"></option>
                         </select>
                     </div>
 

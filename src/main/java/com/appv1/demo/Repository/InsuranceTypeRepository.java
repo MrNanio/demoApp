@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface InsuranceTypeRepository extends JpaRepository<InsuranceType, Integer> {
 
-    @Query("select it from InsuranceType it")
-    List <InsuranceType> findInsuranceTypes();
+   /* @Query("select it from InsuranceType it")
+    List <InsuranceType> findInsuranceTypes();*/
 }
