@@ -41,7 +41,7 @@ and open the template in the editor.
                 </svg> nazwa pojazdu</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">przeglady nazwa pojazdu</a>
+                <a class="nav-link" href="#">ubezpieczenia nazwa pojazdu</a>
             </li>
         </ul>
     </div>
@@ -59,23 +59,30 @@ and open the template in the editor.
 
 <div class="container pt-2 ">
 
-    <div class="text-center"><img class="mb-4" src="/image/people.svg" alt="" width="100" height="100"></div>
+    <div class="text-center">
+        <img class="mb-4" src="/image/car-insurance.svg" alt="" width="100" height="100">
+    </div>
+
     <div class="row" >
         <div class="col-md-12 order-md-1">
             <table class="table">
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Data ważności</th>
+                    <th>Obowiązuje do</th>
+                    <th>Obowiązuje od</th>
+                    <th>Koszt</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="inspection:${inspections}">
-                    <th scope="row"><p th:text="${inspection.idVehicleInspection}"></p> </th>
-                    <td><p th:text="${inspection.expirationDate}"></p></td>
+                <tr th:each="insurance:${insurances}">
+                    <th scope="row"><p th:text="${insurance.idVehicleInsurance}"></p> </th>
+                    <td><p th:text="${insurance.expirationDate}"></p></td>
+                    <td><p th:text="${insurance.effectiveDate}"></p></td>
+                    <td><p th:text="${insurance.cost}"></p></td>
                     <td>
-                        <form sec:authorize="isAuthenticated()" th:action="@{/inspectionDetails/{id}(id = ${inspection.idVehicleInspection})}" method="get">
+                        <form sec:authorize="isAuthenticated()" th:action="@{/insuranceDetails/{id}(id = ${insurance.idVehicleInsurance})}" method="get">
                             <button class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="Submit">Szczegóły</button></form>
                     </td>
                 </tr>
@@ -84,8 +91,8 @@ and open the template in the editor.
 
         </div>
 
-        <form th:action="@{/addInspection/{id}(id = ${vehicle.idVehicle})}" method="get">
-            <button class="btn btn-outline-primary btn-lg btn-radius" type="submit">Dodaj przegląd</button>
+        <form th:action="@{/addInsurance/{id}(id = ${vehicle.idVehicle})}" method="get">
+            <button class="btn btn-outline-primary btn-lg btn-radius" type="submit">Dodaj ubezpieczenie</button>
         </form>
     </div>
 

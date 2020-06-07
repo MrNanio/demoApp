@@ -14,5 +14,5 @@ public interface VehicleInspectionRepository extends JpaRepository<VehicleInspec
     VehicleInspection findVehicleInspectionByIdVehicleInspection(Integer id_vehicle_inspection);
 
     @Query("select vi from VehicleInspection vi where vi.vehicle = ?1")
-    List<VehicleInspection> findVehicleInspectionByVehicleFK(Vehicle vehicle);
+    List <VehicleInspection> findVehicleInspectionByVehicleFK(Vehicle vehicle);
 }

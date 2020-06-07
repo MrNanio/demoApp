@@ -69,9 +69,9 @@ and open the template in the editor.
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="vehicleMake">Marka</label>
-                        <select class="custom-select d-block w-100" id="vehicleMake" name="vehicleMake" required>
+                        <select class="custom-select d-block w-100" id="vehicleMake" name="vehicleMake" th:field="*{vehicleMake.idVehicleMake}" required>
                             <option value="">Wybierz...</option>
-                            <option th:each="vehicleMake:${vehiclemakes}"><p th:text="${vehicleMake.idVehicleMake}"></option>
+                            <option th:each="vehicleMake:${vehiclemakes}"  th:value="${vehicleMake.idVehicleMake}" th:text="${vehicleMake.makeName}"></option>
                         </select>
                     </div>
 
@@ -113,6 +113,7 @@ and open the template in the editor.
                     <div class="col-md-6 mb-3">
                         <label for="fuelType">Typ paliwa</label>
                         <select class="custom-select d-block w-100" id="fuelType" name="fuelType" required th:field="*{fuelType}">
+                            <option value="">Wybierz...</option>
                             <option th:each="fuelType : ${T(com.appv1.demo.Entity.FuelType).values()}"
                                     th:value="${fuelType}"
                                     th:text="${fuelType}"></option>

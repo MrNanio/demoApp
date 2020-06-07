@@ -57,13 +57,13 @@ public class VehicleController {
 
     @GetMapping("/vehicleDetails/{id}")
     public String showVehicleDetails(@PathVariable int id, Model model){
-        model.addAttribute("makeVehicle",vehicleService.getById(id).getVehicleMake());
-        model.addAttribute("vehicle",vehicleService.getById(id));
+        model.addAttribute("makeVehicle", vehicleService.getById(id).getVehicleMake());
+        model.addAttribute("vehicle", vehicleService.getById(id));
         return "vehicleDetails";
     }
     @GetMapping("/vehicleEdit/{id}")
     public String showUpdateVehicleForm(@PathVariable("id") int id, Model model) {
-       Vehicle vehicle=vehicleService.getById(id);
+       Vehicle vehicle = vehicleService.getById(id);
         model.addAttribute("vehicle", vehicle);
         return "editVehicle";
     }

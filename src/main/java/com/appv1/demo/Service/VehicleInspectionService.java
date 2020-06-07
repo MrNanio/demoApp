@@ -26,7 +26,6 @@ public class VehicleInspectionService {
     }
 
     public void save(VehicleInspection vehicleInspection){
-
         vehicleInspectionRepository.save(vehicleInspection);
     }
 
