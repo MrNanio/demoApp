@@ -2,6 +2,7 @@ package com.appv1.demo.Service;
 
 import com.appv1.demo.Entity.User;
 import com.appv1.demo.Entity.Vehicle;
+import com.appv1.demo.Entity.VehicleMake;
 import com.appv1.demo.Entity.VehicleStatus;
 import com.appv1.demo.Repository.VehicleMakeRepository;
 import com.appv1.demo.Repository.VehicleRepository;
@@ -21,16 +22,22 @@ public class VehicleService {
     private VehicleRepository vehicleRepository;
     private VehicleStatusRepository vehicleStatusRepository;
     private UserService userService;
+    private VehicleMakeRepository vehicleMakeRepository;
 
     @Autowired
-    public VehicleService(VehicleRepository vehicleRepository, VehicleStatusRepository vehicleStatusRepository, UserService userService) {
+    public VehicleService(VehicleRepository vehicleRepository, VehicleStatusRepository vehicleStatusRepository, UserService userService, VehicleMakeRepository vehicleMakeRepository) {
         this.vehicleRepository = vehicleRepository;
         this.vehicleStatusRepository = vehicleStatusRepository;
         this.userService = userService;
+        this.vehicleMakeRepository = vehicleMakeRepository;
     }
 
     public List<Vehicle>findMyVehicle(User user){
         return vehicleRepository.findVehicleByUserFK(user);
+    }
+
+    public List<VehicleMake> findAllVehicleMakes(){
+        return vehicleMakeRepository.findAll();
     }
 
     @PostAuthorize("returnObject.user.email == authentication.name")
@@ -46,4 +53,5 @@ public class VehicleService {
         vehicle.setVehicleStatus(vehicleStatus);
         vehicleRepository.save(vehicle);
     }
+
 }

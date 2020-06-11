@@ -24,21 +24,17 @@ public class VehicleController {
 
     VehicleService vehicleService;
     UserService userService;
-    VehicleMakeRepository vehicleMakeRepository;
-    VehicleRepository vehicleRepository;
 
     @Autowired
-    public VehicleController(VehicleService vehicleService, UserService userService, VehicleMakeRepository vehicleMakeRepository, VehicleRepository vehicleRepository) {
+    public VehicleController(VehicleService vehicleService, UserService userService) {
         this.vehicleService = vehicleService;
         this.userService = userService;
-        this.vehicleMakeRepository = vehicleMakeRepository;
-        this.vehicleRepository = vehicleRepository;
     }
 
     @GetMapping("/addVehicle")
     public String showCreateVehicleForm(Model model){
         model.addAttribute("vehicle", new Vehicle());
-        model.addAttribute("vehiclemakes", vehicleMakeRepository.findAll());
+        model.addAttribute("vehiclemakes", vehicleService.findAllVehicleMakes());
         return "addVehicle";
     }
 
@@ -64,21 +60,26 @@ public class VehicleController {
     @GetMapping("/vehicleEdit/{id}")
     public String showUpdateVehicleForm(@PathVariable("id") int id, Model model) {
        Vehicle vehicle = vehicleService.getById(id);
+        model.addAttribute("vehiclemakes", vehicleService.findAllVehicleMakes());
         model.addAttribute("vehicle", vehicle);
         return "editVehicle";
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/updateVehicle/{id}")
     public String updateVehicle(@PathVariable("id") int id, @Valid Vehicle vehicle,
                                 BindingResult result, Model model) {
         if (result.hasErrors()) {
             vehicle.setIdVehicle(id);
             return "editVehicle";
         }
-        vehicleRepository.save(vehicle);
+
+        vehicle.setIdVehicle(id);
+        vehicleService.save(vehicle);
+
         Vehicle vehicle_show = vehicleService.getById(id);
-        model.addAttribute("makeVehicle",vehicle_show.getVehicleMake());
-        model.addAttribute("vehicle",vehicle_show);
-        return "vehicleDetails";
+        model.addAttribute("makeVehicle", vehicle_show.getVehicleMake());
+        model.addAttribute("vehicle", vehicle_show);
+        return "redirect:/vehicleDetails/{id}";
+
     }
 }

@@ -61,7 +61,7 @@
             <h4 class="mb-3">Pojazd</h4>
 
             <form autocomplete="off" action="#" th:action="@{/addInsurance/{id}(id = ${vehicle.idVehicle})}"
-                  th:object="${insurance}"  method="post" class="form-horizontal"
+                  th:object="${vehicleInsurance}"  method="post" class="form-horizontal"
                   role="form">
                 <div class="row">
                     <div class="col-md-4 mb-3">
@@ -110,7 +110,7 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="effectiveDate">Data rozpoczęcia <span class="text-muted"></span></label>
-                        <input type="date" class="form-control" id="effectiveDate" name="effectiveDate" >
+                        <input type="date" class="form-control" id="effectiveDate"  name="effectiveDate" >
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="expirationDate">Data zakończenia <span class="text-muted"></span></label>

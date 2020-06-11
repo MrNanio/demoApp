@@ -66,6 +66,7 @@ and open the template in the editor.
                 <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Marka</th>
                     <th>Model</th>
                     <th>Rok</th>
                     <th>Numer rejestracyjny</th>
@@ -75,6 +76,7 @@ and open the template in the editor.
                 <tbody>
                 <tr th:each="vehicle:${vehicles}">
                     <th scope="row"><p th:text="${vehicle.idVehicle}"></p> </th>
+                    <td><p th:text="${vehicle.vehicleMake.makeName}"></p></td>
                     <td><p th:text="${vehicle.model}"></p></td>
                     <td><p th:text="${vehicle.year}"></p></td>
                     <td><p th:text="${vehicle.vehicleRegistrationNumber}"></p></td>

@@ -118,7 +118,7 @@ and open the template in the editor.
 
             <div class="row">
 
-                <form sec:authorize="isAuthenticated()" th:action="@{/vehicleEdit/{id}(id = ${vehicle.idVehicle})}" method="get">
+                <form sec:authorize="isAuthenticated()" th:action="@{/inspectionEdit/{id}(id = ${vehicleInspection.idVehicleInspection})}" method="get">
                     <button class="btn btn-danger btn-lg btn-block btn_round">Edytuj Dane Przeglądu</button>
                 </form>
                 <div class="col-md-3 mb-3">

@@ -87,7 +87,7 @@
                 <div class="row">
                     <div class="col-md-6 mb-3" >
                         <label for="insuranceType">Typ polisy</label>
-                        <input type="text" class="form-control" id="insuranceType" th:value="${vehicleInsurance.getInsuranceType().name}"  name="insuranceType" disabled>
+                        <input type="text" class="form-control" id="insuranceType" th:value="${vehicleInsurance.insuranceType.name}"  name="insuranceType" disabled>
                     </div>
 
                     <div class="col-md-6 mb-3">
@@ -132,7 +132,7 @@
                 <hr class="mb-4">
             <div class="row">
 
-                <form sec:authorize="isAuthenticated()" th:action="@{/vehicleEdit/{id}(id = ${vehicle.idVehicle})}" method="get">
+                <form sec:authorize="isAuthenticated()" th:action="@{/insuranceEdit/{id}(id = ${vehicleInsurance.idVehicleInsurance})}" method="get">
                     <button class="btn btn-danger btn-lg btn-block btn_round">Edytuj Dane Ubezpieczenia</button>
                 </form>
                 <div class="col-md-3 mb-3">
