@@ -9,10 +9,13 @@ import com.appv1.demo.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Controller
 public class VehicleInsuranceController {
@@ -30,7 +33,7 @@ public class VehicleInsuranceController {
 
     @GetMapping("/addInsurance/{id}")
     public String showCreateVehicleInsuranceForm(@PathVariable int id, Model model){
-        model.addAttribute("insurance", new VehicleInsurance());
+        model.addAttribute("vehicleInsurance", new VehicleInsurance());
         model.addAttribute("vehicle", vehicleService.getById(id));
         model.addAttribute("insurencetypes", vehicleInsuranceService.findInsuranceTypes());
         return "addInsurance";
@@ -55,5 +58,31 @@ public class VehicleInsuranceController {
         model.addAttribute("vehicleInsurance", vehicleInsuranceService.getById(id));
         model.addAttribute("vehicle", vehicleInsuranceService.getById(id).getVehicle());
         return "insuranceDetails";
+    }
+
+    @GetMapping("/insuranceEdit/{id}")
+    public String showUpdateVehicleInsuranceForm(@PathVariable("id") int id, Model model){
+        model.addAttribute("vehicleInsurance", vehicleInsuranceService.getById(id));
+        model.addAttribute("insurencetypes", vehicleInsuranceService.findInsuranceTypes());
+        model.addAttribute("vehicle", vehicleInsuranceService.getById(id).getVehicle());
+
+        return "editInsurance";
+    }
+
+    @PostMapping("/updateVehicleInsurance/{id}")
+    public String updateInsurance(@PathVariable("id") int id, @Valid VehicleInsurance vehicleInsurance,
+                                  BindingResult result, Model model){
+        if (result.hasErrors()) {
+            vehicleInsurance.setIdVehicleInsurance(id);
+            return "editInsurance";
+        }
+
+        vehicleInsurance.setIdVehicleInsurance(id);
+        vehicleInsuranceService.save(vehicleInsurance);
+
+        model.addAttribute("vehicleInsurance", vehicleInsuranceService.getById(id));
+        model.addAttribute("vehicle", vehicleInsuranceService.getById(id).getVehicle());
+
+        return "redirect:/insuranceDetails/{id}";
     }
 }

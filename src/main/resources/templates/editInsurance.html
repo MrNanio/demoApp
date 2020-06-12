@@ -33,7 +33,7 @@
                 </svg> ubezpieczenia</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">dodaj nowe ubezpieczenie</a>
+                <a class="nav-link" href="#">edytuj ubezpieczenie</a>
             </li>
         </ul>
     </div>
@@ -48,46 +48,46 @@
         <button sec:authorize="isAuthenticated()" class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">Wyloguj</button>
     </form>
 </nav>
-<div class="container pt-4" th:object="${vehicleInsurance}">
+<div class="container pt-4">
     <div class="text-center">
         <img class="mb-4" src="/image/car-insurance.svg" alt="" width="100" height="100">
     </div>
 
-    <div class="row" th:object="${vehicle}">
+    <div class="row">
 
-        <div class="col-md-12 order-md-1">
+        <div class="col-md-12 order-md-1" th:object="${vehicle}">
 
             <hr class="mb-4">
             <h4 class="mb-3">Pojazd</h4>
 
-            <div class="row">
-                <div class="col-md-3 mb-3">
-                    <label for="vehicleMake">Marka<span class="text-muted"></span></label>
-                    <input type="text" class="form-control" id="vehicleMake" th:value="${vehicle.vehicleMake.makeName}" name="vehicleMake" disabled>
+            <form autocomplete="off" action="#" th:action="@{/updateVehicleInsurance/{id}(id = ${vehicleInsurance.idVehicleInsurance})}"
+                  th:object="${vehicleInsurance}"  method="post" class="form-horizontal"
+                  role="form">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="vehicleMake">Marka<span class="text-muted"></span></label>
+                        <input type="text" class="form-control" id="vehicleMake" th:value="${vehicle.vehicleMake.makeName}" name="vehicleMake" disabled>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="vehicleModel">Model<span class="text-muted"></span></label>
+                        <input type="text" class="form-control" id="vehicleModel" th:value="${vehicle.model}" name="vehicleModel" disabled>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="vehicleId"><span class="text-muted"></span></label>
+                        <input type="hidden" class="form-control" id="vehicleId" th:value="${vehicle.idVehicle}" name="vehicle">
+                    </div>
                 </div>
 
-                <div class="col-md-3 mb-3">
-                    <label for="vehicleModel">Model<span class="text-muted"></span></label>
-                    <input type="text" class="form-control" id="vehicleModel" th:value="${vehicle.model}" name="vehicleModel" disabled>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <label for="vehicleRegistrationNumber">Numer rejestracyjny<span class="text-muted"></span></label>
-                    <input type="text" class="form-control" id="vehicleRegistrationNumber" th:value="${vehicle.vehicleRegistrationNumber}" name="vehicleRegistrationNumber" disabled>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <label for="vehicleYear">Rok produkcji<span class="text-muted"></span></label>
-                    <input type="text" class="form-control" id="vehicleYear" th:value="${vehicle.year}" name="vehicleYear" disabled>
-                </div>
-            </div>
-
-            <hr class="mb-4">
-
-            <h1 class="h3 mb-3 font-weight-normal">Informacje o ubezpieczeniu</h1>
+                <hr class="mb-4">
+                <h4 class="mb-3">Dane ubezpieczenia</h4>
 
                 <div class="row">
                     <div class="col-md-6 mb-3" >
                         <label for="insuranceType">Typ polisy</label>
-                        <input type="text" class="form-control" id="insuranceType" th:value="${vehicleInsurance.insuranceType.name}"  name="insuranceType" disabled>
+                        <select class="custom-select d-block w-100" id="insuranceType" name="insuranceType" th:field="*{insuranceType.idInsuranceType}" required>
+                            <option value="">Wybierz...</option>
+                            <option th:each="insurenceType:${insurencetypes}" th:value="${insurenceType.idInsuranceType}" th:text="${insurenceType.name}" th:selected="${vehicleInsurance.insuranceType}"></option>
+                        </select>
                     </div>
 
                     <div class="col-md-6 mb-3">
@@ -101,7 +101,7 @@
                                             <path d="M2.5 11h1v1h-1v-1zm2 0h1v1h-1v-1zm-2 2h1v1h-1v-1zm2 0h1v1h-1v-1zm6-10h1v1h-1V3zm2 0h1v1h-1V3zm-4 2h1v1h-1V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm-2 2h1v1h-1V7zm2 0h1v1h-1V7zm-4 0h1v1h-1V7zm0 2h1v1h-1V9zm2 0h1v1h-1V9zm2 0h1v1h-1V9zm-4 2h1v1h-1v-1zm2 0h1v1h-1v-1zm2 0h1v1h-1v-1z"/>
                                             </svg></span>
                             </div>
-                            <input type="text" class="form-control" id="policyNumber" th:value="${vehicleInsurance.policyNumber}" name="policyNumber" disabled>
+                            <input type="text" class="form-control" id="policyNumber" th:value="${vehicleInsurance.policyNumber}" name="policyNumber" placeholder="numer polisy">
                         </div>
 
                     </div>
@@ -110,41 +110,42 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="effectiveDate">Data rozpoczęcia <span class="text-muted"></span></label>
-                        <input type="text" class="form-control" id="effectiveDate" th:value="${vehicleInsurance.effectiveDate}" name="effectiveDate" disabled>
+                        <input type="date" class="form-control" id="effectiveDate" th:value="${vehicleInsurance.effectiveDate}" name="effectiveDate" >
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="expirationDate">Data zakończenia <span class="text-muted"></span></label>
-                        <input type="text" class="form-control" id="expirationDate" th:value="${vehicleInsurance.expirationDate}" name="expirationDate" disabled>
+                        <input type="date" class="form-control" id="expirationDate" th:value="${vehicleInsurance.expirationDate}" name="expirationDate">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="cost">Koszt ubezpieczenia <span class="text-muted"></span></label>
-                        <input type="text" class="form-control " id="cost" th:value="${vehicleInsurance.cost}" name="cost" placeholder="PLN" disabled>
+                        <input type="text" class="form-control " id="cost" th:value="${vehicleInsurance.cost}" name="cost" placeholder="PLN">
                     </div>
                     <div class="col-md-6 mb-3">
                         <div class="form-group">
                             <label for="description">Uwagi dodatkowe</label>
-                            <textarea class="form-control " id="description" th:text="${vehicleInsurance.description}" name="description" rows="3" disabled></textarea>
+                            <textarea class="form-control " id="description" th:text="${vehicleInsurance.description}" name="description" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
                 <hr class="mb-4">
-            <div class="row">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
 
-                <form sec:authorize="isAuthenticated()" th:action="@{/insuranceEdit/{id}(id = ${vehicleInsurance.idVehicleInsurance})}" method="get">
-                    <button class="btn btn-danger btn-lg btn-block btn_round">Edytuj Dane Ubezpieczenia</button>
-                </form>
-                <div class="col-md-3 mb-3">
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <button class="btn btn-primary btn-lg btn-block btn_round" type="submit">Zapisz</button>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <button class="btn btn-danger btn-lg btn-block btn_round" type="submit">Anuluj</button>
+                    </div>
+                    <div class="col-md-3 mb-3">
 
+                    </div>
                 </div>
-                <div class="col-md-3 mb-3">
 
-                </div>
-                <div class="col-md-3 mb-3">
-
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 

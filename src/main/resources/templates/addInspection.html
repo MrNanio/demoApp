@@ -60,7 +60,7 @@
                     <h4 class="mb-3">Pojazd</h4>
 
                     <form autocomplete="off" action="#" th:action="@{/addInspection/{id}(id = ${vehicle.idVehicle})}"
-                    th:object="${inspection}"  method="post" class="form-horizontal"
+                    th:object="${vehicleInspection}"  method="post" class="form-horizontal"
                     role="form">
                         <div class="row">
                             <div class="col-md-4 mb-3">
