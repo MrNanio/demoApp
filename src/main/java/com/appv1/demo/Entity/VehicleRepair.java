@@ -23,9 +23,20 @@ public class VehicleRepair {
     @Column(precision=8, scale=2, nullable = false)
     private BigDecimal cost;
 
+    @Column(length = 20, nullable = false)
+    private String title;
+
     @ManyToOne
     @JoinColumn(name = "VehicleFk", nullable = false)
     private Vehicle vehicle;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public Integer getIdVehicleRepair() {
         return idVehicleRepair;
