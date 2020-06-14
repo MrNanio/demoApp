@@ -56,105 +56,60 @@ and open the template in the editor.
         <button sec:authorize="isAuthenticated()" class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">Wyloguj</button>
     </form>
 </nav>
-<div class="container pt-4 " th:object="${vehicle}">
+<div class="container pt-4 " th:object="${vehicleRepair}">
 
-    <div class="text-center"><img class="mb-4" src="/image/car.svg" alt="" width="100" height="100"></div>
+    <div class="text-center"><img class="mb-4" src="/image/repair.svg" alt="" width="100" height="100"></div>
 
-    <div class="row">
+    <div class="row" th:object="${vehicle}">
         <div class="col-md-12 order-md-1">
 
             <hr class="mb-4">
+            <h4 class="mb-3">Pojazd</h4>
+
             <div class="row">
                 <div class="col-md-3 mb-3">
-                    <form th:action="@{/addVehicle}">
-                        <button class="btn btn-outline-primary btn-lg btn-radius"  type="Submit">Przebiegi</button>
-                    </form>
-                </div>
-
-                <div class="col-md-3 mb-3">
-                    <form th:action="@{/vehicleInspections/{id}(id = ${vehicle.idVehicle})}" method="get">
-                        <button class="btn btn-outline-primary btn-lg btn-radius"  type="Submit">Przeglądy</button>
-                    </form>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <form th:action="@{/vehicleRepairs/{id}(id = ${vehicle.idVehicle})}" method="get">
-                        <button class="btn btn-outline-primary btn-lg btn-radius"  type="Submit">Naprawy</button>
-                    </form>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <form th:action="@{/vehicleInsurances/{id}(id = ${vehicle.idVehicle})}">
-                        <button class="btn btn-outline-primary btn-lg btn-radius"  type="Submit">Ubezpieczenia</button>
-                    </form>
-                </div>
-            </div>
-            <hr class="mb-4">
-            
-            <h1 class="h3 mb-3 font-weight-normal">Informacje o pojeździe</h1>
-
-            <div class="row" th:object="${makeVehicle}">
-
-                <div class="col-md-6 mb-3">
                     <label for="vehicleMake">Marka<span class="text-muted"></span></label>
-                    <input type="text" class="form-control " id="vehicleMake" th:value="${makeVehicle.makeName}" disabled>
-
-
+                    <input type="text" class="form-control" id="vehicleMake" th:value="${vehicle.vehicleMake.makeName}" name="vehicleMake" disabled>
                 </div>
 
-                <div class="col-md-6 mb-3">
-                    <label for="model">Model <span class="text-muted"></span></label>
-                    <input type="text" class="form-control " id="model" th:value="${vehicle.model}" disabled>
-
+                <div class="col-md-3 mb-3">
+                    <label for="vehicleModel">Model<span class="text-muted"></span></label>
+                    <input type="text" class="form-control" id="vehicleModel" th:value="${vehicle.model}" name="vehicleModel" disabled>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="year">Rok produkcji<span class="text-muted"></span></label>
-                    <input type="text" class="form-control " id="year" th:value="${vehicle.year}" disabled>
+                <div class="col-md-3 mb-3">
+                    <label for="vehicleRegistrationNumber">Numer rejestracyjny<span class="text-muted"></span></label>
+                    <input type="text" class="form-control" id="vehicleRegistrationNumber" th:value="${vehicle.vehicleRegistrationNumber}" name="vehicleRegistrationNumber" disabled>
                 </div>
-                <div class="col-md-6 mb-3">
-                    <label for="color">Kolor <span class="text-muted"></span></label>
-                    <input type="text" class="form-control " id="color" th:value="${vehicle.color}" disabled>
+                <div class="col-md-3 mb-3">
+                    <label for="vehicleYear">Rok produkcji<span class="text-muted"></span></label>
+                    <input type="text" class="form-control" id="vehicleYear" th:value="${vehicle.year}" name="vehicleYear" disabled>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="mileage">Przebieg<span class="text-muted"></span></label>
-                    <input type="text" class="form-control " id="mileage" th:value="${vehicle.mileage}" disabled>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="vehicleRegistrationNumber">Numer rejestracyjny <span class="text-muted"></span></label>
-                    <input type="text" class="form-control " id="vehicleRegistrationNumber" th:value="${vehicle.vehicleRegistrationNumber}" disabled>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="vinNumber">Numer VIN<span class="text-muted"></span></label>
-                    <input type="text" class="form-control " id="vinNumber" th:value="${vehicle.vinNumber}" disabled>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="fuelType">Rodzaj paliwa <span class="text-muted"></span></label>
-                    <input type="text" class="form-control " id="fuelType" th:value="${vehicle.fuelType}" disabled>
-                </div>
-            </div>
-
             <hr class="mb-4">
-            <h4 class="mb-3">Średnie spalanie</h4>
+
+            <h1 class="h3 mb-3 font-weight-normal">Informacje o naprawie</h1>
 
             <div class="row">
-                <div class="col-md-4 mb-3">
-                    <label for="cityFuelConsumption">Cykl miejski<span class="text-muted"></span></label>
-                    <input type="text" class="form-control " id="cityFuelConsumption" th:value="${vehicle.cityFuelConsumption}" disabled>
+                <div class="col-md-6 mb-3">
+                    <label for="title">Tytuł <span class="text-muted"></span></label>
+                    <input type="text" class="form-control " id="title" th:value="${vehicleRepair.title}"  name="title" disabled>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <label for="countryFuelConsumption">Cykl pozamiejski <span class="text-muted"></span></label>
-                    <input type="text" class="form-control " id="countryFuelConsumption" th:value="${vehicle.countryFuelConsumption}" disabled>
+                <div class="col-md-6 mb-3">
+                    <label for="repairDate">Data naprawy<span class="text-muted"></span></label>
+                    <input type="date" class="form-control" id="repairDate" th:value="${vehicleRepair.repairDate}" name="repairDate" disabled>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <label for="averageFuelConsumption">Cykl mieszany<span class="text-muted"></span></label>
-                    <input type="text" class="form-control " id="averageFuelConsumption" th:value="${vehicle.averageFuelConsumption}" disabled>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="repairCost">Koszt naprawy <span class="text-muted"></span></label>
+                    <input type="text" class="form-control " id="repairCost" th:value="${vehicleRepair.cost}" name="cost" disabled>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="description">Opis naprawy</label>
+                        <textarea class="form-control " id="description" th:text="${vehicleRepair.description}"  name="description" rows="3" disabled></textarea>
+                    </div>
                 </div>
             </div>
 
@@ -162,9 +117,8 @@ and open the template in the editor.
 
             <div class="row">
 
-
-                <form sec:authorize="isAuthenticated()" th:action="@{/vehicleEdit/{id}(id = ${vehicle.idVehicle})}" method="get">
-                    <button class="btn btn-danger btn-lg btn-block btn_round">Edytuj Dane Pojazdu</button>
+                <form sec:authorize="isAuthenticated()" th:action="@{/repairEdit/{id}(id = ${vehicleRepair.idVehicleRepair})}" method="get">
+                    <button class="btn btn-danger btn-lg btn-block btn_round">Edytuj Dane Naprawy</button>
                 </form>
                 <div class="col-md-3 mb-3">
 

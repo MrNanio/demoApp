@@ -20,13 +20,11 @@ import javax.validation.Valid;
 @Controller
 public class VehicleInspectionController {
 
-    VehicleInspectionRepository vehicleInspectionRepository;
     VehicleInspectionService vehicleInspectionService;
     VehicleService vehicleService;
 
     @Autowired
-    public VehicleInspectionController(VehicleInspectionRepository vehicleInspectionRepository, VehicleInspectionService vehicleInspectionService, VehicleService vehicleService) {
-        this.vehicleInspectionRepository = vehicleInspectionRepository;
+    public VehicleInspectionController(VehicleInspectionService vehicleInspectionService, VehicleService vehicleService) {
         this.vehicleInspectionService = vehicleInspectionService;
         this.vehicleService = vehicleService;
     }
@@ -46,8 +44,8 @@ public class VehicleInspectionController {
 
     @GetMapping("/vehicleInspections/{id}")
     public String showVehicleInspections(@PathVariable int id, Model model){
-        model.addAttribute("vehicle", vehicleService.getById(id));
         Vehicle vehicle = vehicleService.getById(id);
+        model.addAttribute("vehicle", vehicle);
         model.addAttribute("inspections", vehicleInspectionService.findVehicleInspections(vehicle));
         return "vehicleInspections";
     }
