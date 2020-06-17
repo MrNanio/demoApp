@@ -1,12 +1,15 @@
 package com.appv1.demo.Controller;
 
 
+import com.appv1.demo.Entity.User;
 import com.appv1.demo.Entity.Vehicle;
 import com.appv1.demo.Entity.VehicleInsurance;
-import com.appv1.demo.Repository.VehicleInsuranceRepository;
+import com.appv1.demo.Service.UserService;
 import com.appv1.demo.Service.VehicleInsuranceService;
 import com.appv1.demo.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,17 +19,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class VehicleInsuranceController {
 
     VehicleInsuranceService vehicleInsuranceService;
     VehicleService vehicleService;
+    UserService userService;
 
     @Autowired
-    public VehicleInsuranceController(VehicleInsuranceService vehicleInsuranceService, VehicleService vehicleService) {
+    public VehicleInsuranceController(VehicleInsuranceService vehicleInsuranceService, VehicleService vehicleService, UserService userService) {
         this.vehicleInsuranceService = vehicleInsuranceService;
         this.vehicleService = vehicleService;
+        this.userService = userService;
     }
 
     @GetMapping("/addInsurance/{id}")
@@ -82,5 +88,30 @@ public class VehicleInsuranceController {
         model.addAttribute("vehicle", vehicleInsuranceService.getById(id).getVehicle());
 
         return "redirect:/insuranceDetails/{id}";
+    }
+
+    @GetMapping("/allVehicleInsurances")
+    public String showAllVehicleInsurances(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        List<Vehicle> vehicles = vehicleService.findMyVehicles(user);
+        model.addAttribute("insurances", vehicleInsuranceService.findVehicleInsurances(vehicles));
+        return "allVehicleInsurances";
+    }
+
+    @GetMapping("/addInsuranceWithVehicleChoice")
+    public String showCreateVehicleInsuranceChoiceForm(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        model.addAttribute("vehicleInsurance", new VehicleInsurance());
+        model.addAttribute("vehicles", vehicleService.findMyVehicles(user));
+        model.addAttribute("insurencetypes", vehicleInsuranceService.findInsuranceTypes());
+        return "addInsuranceWithVehicleChoice";
+    }
+
+    @PostMapping("/addInsuranceWithVehicleChoice")
+    public String createVehicleInsuranceAfterVehicleChoice(@ModelAttribute VehicleInsurance vehicleInsurance){
+        vehicleInsuranceService.save(vehicleInsurance);
+        return "redirect:/allVehicleInsurances";
     }
 }

@@ -8,7 +8,7 @@ import java.util.Set;
 public class InsuranceType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idInsuranceType;
 
     @Column(length = 45, nullable = false)

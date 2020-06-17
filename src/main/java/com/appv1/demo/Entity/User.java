@@ -10,7 +10,7 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idUser;
 
     @Column(length = 255, nullable = false)
@@ -28,7 +28,6 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "UserStatusFk", nullable = false)
     private UserStatus userStatus;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="IdManagerFk")

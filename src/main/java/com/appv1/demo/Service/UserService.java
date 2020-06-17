@@ -35,7 +35,7 @@ public class UserService {
     public void saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         Role userRole = roleRepository.findRoleByRole("ADMIN");
-        UserStatus userStatus = userStatusRepository.findUserStatusByIdUserStatus(0);
+        UserStatus userStatus = userStatusRepository.findUserStatusByIdUserStatus(1);
         user.setUserStatus(userStatus);
         user.setUserLevel("1");
         LocalDateTime datetime = LocalDateTime.now();

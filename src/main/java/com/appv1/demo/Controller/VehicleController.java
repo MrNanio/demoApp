@@ -2,14 +2,9 @@ package com.appv1.demo.Controller;
 
 import com.appv1.demo.Entity.User;
 import com.appv1.demo.Entity.Vehicle;
-import com.appv1.demo.Entity.VehicleMake;
-import com.appv1.demo.Repository.VehicleMakeRepository;
-import com.appv1.demo.Repository.VehicleRepository;
 import com.appv1.demo.Service.UserService;
 import com.appv1.demo.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -44,10 +39,10 @@ public class VehicleController {
         return "redirect:/vehicle";
     }
     @GetMapping("/vehicle")
-    public String showAllMyVehicle(Model model){
+    public String showAllMyVehicles(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        model.addAttribute("vehicles", vehicleService.findMyVehicle(user));
+        model.addAttribute("vehicles", vehicleService.findMyVehicles(user));
         return "vehicle";
     }
 

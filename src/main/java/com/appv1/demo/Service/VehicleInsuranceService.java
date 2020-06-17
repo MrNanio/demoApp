@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -38,5 +39,13 @@ public class VehicleInsuranceService {
 
     public List <VehicleInsurance> findVehicleInsurances(Vehicle vehicle){
         return vehicleInsuranceRepository.findVehicleInsuranceByVehicleFK(vehicle);
+    }
+
+    public List <VehicleInsurance> findVehicleInsurances(List <Vehicle> vehicles){
+        List <VehicleInsurance> vehicleInsurances = new LinkedList<>();
+        for (Vehicle vehicle : vehicles) {
+            vehicleInsurances.addAll(vehicle.getVehicleInsurances());
+        }
+        return vehicleInsurances;
     }
 }

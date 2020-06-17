@@ -1,22 +1,16 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="FMApp" content="">
-    <meta name="PNMN" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <title>fleetAssistant</title>
     <link rel = "icon" th:href="@{/image/automobile.png}" type = "image/x-icon">
     <!-- Bootstrap core CSS -->
-
-    <link th:href="@{/css/custom.css}" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Lobster|Roboto&display=swap" rel="stylesheet">
+    <link th:href="@{/css/custom.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"  crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"  crossorigin="anonymous"></script>
     <style>
@@ -36,10 +30,10 @@ and open the template in the editor.
 
                 <a class="nav-link pl-0" href=""><svg class="bi bi-chevron-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z" clip-rule="evenodd"/>
-                </svg> pojazdy</a>
+                </svg> ubezpieczenia</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">dodaj nowy pojazdu</a>
+                <a class="nav-link" href="#">dodaj nowe ubezpieczenie</a>
             </li>
         </ul>
     </div>
@@ -54,94 +48,89 @@ and open the template in the editor.
         <button sec:authorize="isAuthenticated()" class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">Wyloguj</button>
     </form>
 </nav>
+<div class="container pt-4">
+    <div class="text-center">
+        <img class="mb-4" src="/image/car-insurance.svg" alt="" width="100" height="100">
+    </div>
 
-<div class="container pt-2 ">
-
-    <div class="text-center"><img class="mb-4"  src="/image/car.svg" alt="" width="100" height="100"></div>
     <div class="row">
 
         <div class="col-md-12 order-md-1">
-            <h1 class="h3 mb-3 font-weight-normal">Informacje o pojeździe</h1>
 
-            <form autocomplete="off" action="#" th:action="@{addVehicle}"
-                  th:object="${vehicle}"  method="post" class="form-horizontal"
+            <hr class="mb-4">
+            <h4 class="mb-3">Pojazd</h4>
+
+            <form autocomplete="off" action="#" th:action="@{/addInsuranceWithVehicleChoice}"
+                  th:object="${vehicleInsurance}"  method="post" class="form-horizontal"
                   role="form">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="vehicleMake">Marka</label>
-                        <select class="custom-select d-block w-100" id="vehicleMake" name="vehicleMake" th:field="*{vehicleMake.idVehicleMake}" required>
+                        <label for="vehicle">Pojazd</label>
+                        <select class="custom-select d-block w-100" id="vehicle" name="vehicle" th:field="*{vehicle}" required>
                             <option value="">Wybierz...</option>
-                            <option th:each="vehicleMake:${vehiclemakes}"  th:value="${vehicleMake.idVehicleMake}" th:text="${vehicleMake.makeName}"></option>
+                            <option th:each="vehicle:${vehicles}"  th:value="${vehicle.idVehicle}" th:text="${vehicle.vehicleMake.makeName + ' ' + vehicle.model + ' ' + vehicle.vehicleRegistrationNumber + ' ' + vehicle.vinNumber + ' ' + vehicle.year}"></option>
                         </select>
                     </div>
+                    <div class="col-md-6 mb-3">
 
-                    <div class="col-md-6 mb-3">
-                        <label>Model</label>
-                        <input type="text" id="model" name="model" placeholder="model"
-                               class="form-control"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="year">Rok produkcji<span class="text-muted"></span></label>
-                        <input type="text" id="year" name="year" placeholder="rok produkcji"
-                               class="form-control"/>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="color">Kolor <span class="text-muted"></span></label>
-                        <input type="text" id="color" name="color" placeholder="kolor"
-                               class="form-control"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="mileage">Przebieg<span class="text-muted"></span></label>
-                        <input type="text" id="mileage" name="mileage" placeholder="przebieg"
-                               class="form-control"/>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="vehicleRegistrationNumber">Numer rejestracyjny <span class="text-muted"></span></label>
-                        <input type="text" class="form-control " id="vehicleRegistrationNumber" name="vehicleRegistrationNumber" placeholder="numer rejestracyjny">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="vinNumber">Numer VIN <span class="text-muted"></span></label>
-                        <input type="text" class="form-control " id="vinNumber" name="vinNumber" placeholder="VIN">
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="fuelType">Typ paliwa</label>
-                        <select class="custom-select d-block w-100" id="fuelType" name="fuelType" required th:field="*{fuelType}">
-                            <option value="">Wybierz...</option>
-                            <option th:each="fuelType : ${T(com.appv1.demo.AdditionalClass.FuelType).values()}"
-                                    th:value="${fuelType}"
-                                    th:text="${fuelType}"></option>
-                        </select>
                     </div>
                 </div>
 
                 <hr class="mb-4">
-                <h4 class="mb-3">Średnie spalanie</h4>
+                <h4 class="mb-3">Dane ubezpieczenia</h4>
 
                 <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label for="cityFuelConsumption">Cykl miejski<span class="text-muted"></span></label>
-                        <input type="text" class="form-control " id="cityFuelConsumption" name="cityFuelConsumption">
+                    <div class="col-md-6 mb-3" >
+                        <label for="insuranceType">Typ polisy</label>
+                        <select class="custom-select d-block w-100" id="insuranceType" name="insuranceType" th:field="*{insuranceType.idInsuranceType}" required>
+                            <option value="">Wybierz...</option>
+                            <option th:each="insurenceType:${insurencetypes}" th:value="${insurenceType.idInsuranceType}" th:text="${insurenceType.name}"></option>
+                        </select>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="countryFuelConsumption">Cykl pozamiejski <span class="text-muted"></span></label>
-                        <input type="text" class="form-control " id="countryFuelConsumption" name="countryFuelConsumption">
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="averageFuelConsumption">Cykl mieszany<span class="text-muted"></span></label>
-                        <input type="text" class="form-control " id="averageFuelConsumption" name="averageFuelConsumption">
+
+                    <div class="col-md-6 mb-3">
+                        <label for="policyNumber">Numer polisy <span class="text-muted"></span></label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                        <span class="input-group-text">  <svg class="bi bi-building" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M15.285.089A.5.5 0 0115.5.5v15a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5V14h-1v1.5a.5.5 0 01-.5.5H1a.5.5 0 01-.5-.5v-6a.5.5 0 01.418-.493l5.582-.93V3.5a.5.5 0 01.324-.468l8-3a.5.5 0 01.46.057zM7.5 3.846V8.5a.5.5 0 01-.418.493l-5.582.93V15h8v-1.5a.5.5 0 01.5-.5h2a.5.5 0 01.5.5V15h2V1.222l-7 2.624z" clip-rule="evenodd"/>
+                                            <path fill-rule="evenodd" d="M6.5 15.5v-7h1v7h-1z" clip-rule="evenodd"/>
+                                            <path d="M2.5 11h1v1h-1v-1zm2 0h1v1h-1v-1zm-2 2h1v1h-1v-1zm2 0h1v1h-1v-1zm6-10h1v1h-1V3zm2 0h1v1h-1V3zm-4 2h1v1h-1V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm-2 2h1v1h-1V7zm2 0h1v1h-1V7zm-4 0h1v1h-1V7zm0 2h1v1h-1V9zm2 0h1v1h-1V9zm2 0h1v1h-1V9zm-4 2h1v1h-1v-1zm2 0h1v1h-1v-1zm2 0h1v1h-1v-1z"/>
+                                            </svg></span>
+                            </div>
+                            <input type="text" class="form-control" id="policyNumber" name="policyNumber" placeholder="numer polisy">
+                        </div>
+
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="effectiveDate">Data rozpoczęcia <span class="text-muted"></span></label>
+                        <input type="date" class="form-control" id="effectiveDate"  name="effectiveDate" >
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="expirationDate">Data zakończenia <span class="text-muted"></span></label>
+                        <input type="date" class="form-control" id="expirationDate" name="expirationDate">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="cost">Koszt ubezpieczenia <span class="text-muted"></span></label>
+                        <input type="text" class="form-control " id="cost" name="cost" placeholder="PLN">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="description">Uwagi dodatkowe</label>
+                            <textarea class="form-control " id="description" name="description" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
                 <hr class="mb-4">
                 <div class="row">
                     <div class="col-md-3 mb-3">
+
                     </div>
                     <div class="col-md-3 mb-3">
                         <button class="btn btn-primary btn-lg btn-block btn_round" type="submit">Zapisz</button>
@@ -153,6 +142,7 @@ and open the template in the editor.
 
                     </div>
                 </div>
+
             </form>
         </div>
     </div>
