@@ -32,7 +32,7 @@ public class VehicleService {
         this.vehicleMakeRepository = vehicleMakeRepository;
     }
 
-    public List<Vehicle>findMyVehicle(User user){
+    public List<Vehicle>findMyVehicles(User user){
         return vehicleRepository.findVehicleByUserFK(user);
     }
 

@@ -9,7 +9,7 @@ import java.util.Set;
 public class UserStatus {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idUserStatus;
 
     @Column(length = 15, nullable = false)

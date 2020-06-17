@@ -1,21 +1,15 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="FMApp" content="">
-    <meta name="PNMN" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <title>fleetAssistant</title>
     <link rel = "icon" th:href="@{/image/automobile.png}" type = "image/x-icon">
     <!-- Bootstrap core CSS -->
-
-    <link th:href="@{/css/custom.css}" rel="stylesheet" />
+    <link th:href="@{/css/custom.css}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lobster|Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"  crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"  crossorigin="anonymous"></script>
@@ -36,10 +30,10 @@ and open the template in the editor.
 
                 <a class="nav-link pl-0" href=""><svg class="bi bi-chevron-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z" clip-rule="evenodd"/>
-                </svg> pojazdy</a>
+                </svg> naprawy</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">dodaj nowy pojazdu</a>
+                <a class="nav-link" href="#">dodaj nową naprawę</a>
             </li>
         </ul>
     </div>
@@ -55,93 +49,62 @@ and open the template in the editor.
     </form>
 </nav>
 
-<div class="container pt-2 ">
+<div class="container pt-4">
+    <div class="text-center"><img class="mb-4" src="/image/repair.svg" alt="" width="100" height="100"></div>
 
-    <div class="text-center"><img class="mb-4"  src="/image/car.svg" alt="" width="100" height="100"></div>
     <div class="row">
 
         <div class="col-md-12 order-md-1">
-            <h1 class="h3 mb-3 font-weight-normal">Informacje o pojeździe</h1>
 
-            <form autocomplete="off" action="#" th:action="@{addVehicle}"
-                  th:object="${vehicle}"  method="post" class="form-horizontal"
+            <hr class="mb-4">
+            <h4 class="mb-3">Pojazd</h4>
+
+            <form autocomplete="off" action="#" th:action="@{/addRepairWithVehicleChoice}"
+                  th:object="${vehicleRepair}"  method="post" class="form-horizontal"
                   role="form">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="vehicleMake">Marka</label>
-                        <select class="custom-select d-block w-100" id="vehicleMake" name="vehicleMake" th:field="*{vehicleMake.idVehicleMake}" required>
+                        <label for="vehicle">Pojazd</label>
+                        <select class="custom-select d-block w-100" id="vehicle" name="vehicle" th:field="*{vehicle}" required>
                             <option value="">Wybierz...</option>
-                            <option th:each="vehicleMake:${vehiclemakes}"  th:value="${vehicleMake.idVehicleMake}" th:text="${vehicleMake.makeName}"></option>
+                            <option th:each="vehicle:${vehicles}"  th:value="${vehicle.idVehicle}" th:text="${vehicle.vehicleMake.makeName + ' ' + vehicle.model + ' ' + vehicle.vehicleRegistrationNumber + ' ' + vehicle.vinNumber + ' ' + vehicle.year}"></option>
                         </select>
                     </div>
+                    <div class="col-md-6 mb-3">
 
-                    <div class="col-md-6 mb-3">
-                        <label>Model</label>
-                        <input type="text" id="model" name="model" placeholder="model"
-                               class="form-control"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="year">Rok produkcji<span class="text-muted"></span></label>
-                        <input type="text" id="year" name="year" placeholder="rok produkcji"
-                               class="form-control"/>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="color">Kolor <span class="text-muted"></span></label>
-                        <input type="text" id="color" name="color" placeholder="kolor"
-                               class="form-control"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="mileage">Przebieg<span class="text-muted"></span></label>
-                        <input type="text" id="mileage" name="mileage" placeholder="przebieg"
-                               class="form-control"/>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="vehicleRegistrationNumber">Numer rejestracyjny <span class="text-muted"></span></label>
-                        <input type="text" class="form-control " id="vehicleRegistrationNumber" name="vehicleRegistrationNumber" placeholder="numer rejestracyjny">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="vinNumber">Numer VIN <span class="text-muted"></span></label>
-                        <input type="text" class="form-control " id="vinNumber" name="vinNumber" placeholder="VIN">
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="fuelType">Typ paliwa</label>
-                        <select class="custom-select d-block w-100" id="fuelType" name="fuelType" required th:field="*{fuelType}">
-                            <option value="">Wybierz...</option>
-                            <option th:each="fuelType : ${T(com.appv1.demo.AdditionalClass.FuelType).values()}"
-                                    th:value="${fuelType}"
-                                    th:text="${fuelType}"></option>
-                        </select>
                     </div>
                 </div>
 
                 <hr class="mb-4">
-                <h4 class="mb-3">Średnie spalanie</h4>
+                <h4 class="mb-3">Dane naprawy</h4>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="title">Tytuł <span class="text-muted"></span></label>
+                        <input type="text" class="form-control " id="title" name="title" placeholder="tytuł">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="repairDate">Data naprawy<span class="text-muted"></span></label>
+                        <input type="date" class="form-control" id="repairDate" name="repairDate">
+                    </div>
+                </div>
 
                 <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label for="cityFuelConsumption">Cykl miejski<span class="text-muted"></span></label>
-                        <input type="text" class="form-control " id="cityFuelConsumption" name="cityFuelConsumption">
+                    <div class="col-md-6 mb-3">
+                        <label for="repairCost">Koszt naprawy <span class="text-muted"></span></label>
+                        <input type="text" class="form-control " id="repairCost" name="cost" placeholder="PLN">
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="countryFuelConsumption">Cykl pozamiejski <span class="text-muted"></span></label>
-                        <input type="text" class="form-control " id="countryFuelConsumption" name="countryFuelConsumption">
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="averageFuelConsumption">Cykl mieszany<span class="text-muted"></span></label>
-                        <input type="text" class="form-control " id="averageFuelConsumption" name="averageFuelConsumption">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="description">Opis naprawy</label>
+                            <textarea class="form-control " id="description" name="description" rows="3"></textarea>
+                        </div>
                     </div>
                 </div>
 
                 <hr class="mb-4">
                 <div class="row">
                     <div class="col-md-3 mb-3">
+
                     </div>
                     <div class="col-md-3 mb-3">
                         <button class="btn btn-primary btn-lg btn-block btn_round" type="submit">Zapisz</button>
@@ -153,6 +116,7 @@ and open the template in the editor.
 
                     </div>
                 </div>
+
             </form>
         </div>
     </div>

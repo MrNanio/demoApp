@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -31,6 +32,14 @@ public class VehicleInspectionService {
 
     public List <VehicleInspection> findVehicleInspections(Vehicle vehicle){
         return vehicleInspectionRepository.findVehicleInspectionByVehicleFK(vehicle);
+    }
+
+    public List <VehicleInspection> findVehicleInspections(List <Vehicle> vehicles){
+        List <VehicleInspection> vehicleInspections = new LinkedList<>();
+        for (Vehicle vehicle : vehicles) {
+            vehicleInspections.addAll(vehicle.getVehicleInspections());
+        }
+        return vehicleInspections;
     }
 
 }

@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class VehicleInspection {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idVehicleInspection;
 
     @Column(nullable = false)

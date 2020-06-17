@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
@@ -51,24 +51,26 @@
 
 <div class="container pt-4">
     <div class="text-center"><img class="mb-4" src="/image/people.svg" alt="" width="100" height="100"></div>
+
     <div class="row">
 
         <div class="col-md-12 order-md-1">
-            <form autocomplete="off" action="#" th:action="@{addInspection.html}"
-                  th:object="${inspection}"  method="post" class="form-horizontal"
+
+            <hr class="mb-4">
+            <h4 class="mb-3">Pojazd</h4>
+
+            <form autocomplete="off" action="#" th:action="@{/addInspectionWithVehicleChoice}"
+                  th:object="${vehicleInspection}"  method="post" class="form-horizontal"
                   role="form">
                 <div class="row">
-                    <div class="col-md-4 mb-3">
-
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="choosenVehicle">Pojazd</label>
-                        <select class="custom-select d-block w-100" id="choosenVehicle" required>
+                    <div class="col-md-6 mb-3">
+                        <label for="vehicle">Pojazd</label>
+                        <select class="custom-select d-block w-100" id="vehicle" name="vehicle" th:field="*{vehicle}" required>
                             <option value="">Wybierz...</option>
-                            <option th:each="vehicle:${vehicles}"><p th:text="${vehicle.idVehicle}"></option>
+                            <option th:each="vehicle:${vehicles}"  th:value="${vehicle.idVehicle}" th:text="${vehicle.vehicleMake.makeName + ' ' + vehicle.model + ' ' + vehicle.vehicleRegistrationNumber + ' ' + vehicle.vinNumber + ' ' + vehicle.year}"></option>
                         </select>
                     </div>
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-6 mb-3">
 
                     </div>
                 </div>
@@ -78,26 +80,27 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="inspectionDate">Data przeglądu<span class="text-muted"></span></label>
-                        <input type="date" class="form-control" id="inspectionDate" >
+                        <input type="date" class="form-control" id="inspectionDate" name="inspectionDate">
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="expirationDate">Data ważności<span class="text-muted"></span></label>
-                        <input type="date" class="form-control " id="expirationDate" >
+                        <input type="date" class="form-control " id="expirationDate" name="expirationDate">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="inspectionCost">Koszt przeglądu <span class="text-muted"></span></label>
-                        <input type="text" class="form-control " id="inspectionCost" placeholder="PLN">
+                        <input type="text" class="form-control " id="inspectionCost" name="cost" placeholder="PLN">
                     </div>
                     <div class="col-md-6 mb-3">
                         <div class="form-group">
                             <label for="description">Uwagi dodatkowe</label>
-                            <textarea class="form-control " id="description" rows="3"></textarea>
+                            <textarea class="form-control " id="description" name="description" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
+
                 <hr class="mb-4">
                 <div class="row">
                     <div class="col-md-3 mb-3">
